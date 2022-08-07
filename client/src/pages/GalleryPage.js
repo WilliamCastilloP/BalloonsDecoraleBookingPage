@@ -1,26 +1,38 @@
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const GalleryPage = () => {
   const history = useHistory();
+  const [images, setImages] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/images").then((res) =>
+      res.json().then((data) => {
+        setImages(data);
+      })
+    );
+  }, []);
 
   return (
     <Wrapper>
       <ImagesWrapper>
-        {Array.from({ length: 50 }).map((_, index) => (
+        {/* {Array.from({ length: 50 }).map((_, index) => (
           <Link to={`/gallery/${index}`}>
             <Img
               value={index}
               src={`${process.env.PUBLIC_URL}/images/${index + 1}.jpeg`}
             />
+          </Link> */}
+        {images?.data.map((image) => (
+          <Link to={`/gallery/${image._id}`}>
+            <Img src={image.url} />
           </Link>
         ))}
       </ImagesWrapper>
     </Wrapper>
   );
 };
-
-console.log(Array.from({ length: 50 }));
 
 const ImagesWrapper = styled.div`
   /* width: 80%;
