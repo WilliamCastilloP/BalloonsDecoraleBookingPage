@@ -22,9 +22,10 @@ const LinksWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
+  box-sizing: border-box;
   border: 1px solid red;
   padding: 10px;
-  height: 100px;
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;

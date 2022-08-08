@@ -17,15 +17,8 @@ const GalleryPage = () => {
   return (
     <Wrapper>
       <ImagesWrapper>
-        {/* {Array.from({ length: 50 }).map((_, index) => (
-          <Link to={`/gallery/${index}`}>
-            <Img
-              value={index}
-              src={`${process.env.PUBLIC_URL}/images/${index + 1}.jpeg`}
-            />
-          </Link> */}
         {images?.data.map((image) => (
-          <Link to={`/gallery/${image._id}`}>
+          <Link key={image._id} to={`/booking/${image._id}`}>
             <Img src={image.url} />
           </Link>
         ))}
@@ -43,6 +36,7 @@ const ImagesWrapper = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
+  min-height: 80vh;
   /* display: flex; */
   /* flex-wrap: wrap; */
 `;
