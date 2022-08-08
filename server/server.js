@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const PORT = 8000;
 // importing our handlers
 const { getImages, getImage } = require("./handlers/images/imagesHandlers");
+const { addEvent, getEvents } = require("./handlers/events/eventsHandler");
 
 // Calling express and adding .use config
 express()
@@ -21,7 +22,11 @@ express()
 
   // These are the images endpoints
   .get("/images", getImages)
-  .get("/images/:imageId", getImage)
+  .get("/booking/:imageId", getImage)
+
+  // These are the events endpoints
+  .get("/events", getEvents)
+  .post("/events", addEvent)
 
   .listen(PORT, () => {
     console.log(`Server app listening on port ${PORT}`);
