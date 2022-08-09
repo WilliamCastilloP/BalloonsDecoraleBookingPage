@@ -1,20 +1,23 @@
+"use strict";
+
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const PORT = 8000;
 // importing our handlers
 const { getImages, getImage } = require("./handlers/images/imagesHandlers");
-const { addEvent, getEvents } = require("./handlers/events/eventsHandler");
+const {
+  addEvent,
+  getEvents,
+  getEvent,
+  updateEvent,
+  deleteEvent,
+} = require("./handlers/events/eventsHandler");
 
 // Calling express and adding .use config
 express()
-  .use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-  })
+  .use(cors({ origin: "*" }))
+
   .use(morgan("tiny"))
   .use(express.static("public"))
   .use(express.json())
@@ -26,7 +29,10 @@ express()
 
   // These are the events endpoints
   .get("/events", getEvents)
+  .get("/events/:eventId", getEvent)
   .post("/events", addEvent)
+  .put("/events", updateEvent)
+  .delete("/events", deleteEvent)
 
   .listen(PORT, () => {
     console.log(`Server app listening on port ${PORT}`);
