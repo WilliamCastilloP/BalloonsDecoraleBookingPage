@@ -4,8 +4,10 @@ import HomePage from "./pages/HomePage";
 import GalleryPage from "./pages/GalleryPage";
 import SignInPage from "./pages/SignInPage";
 import BookingPage from "./pages/BookingPage";
+import UpdatePage from "./pages/UpdatePage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import EventsPage from "./pages/EventsPage";
 import GlobalStyles from "./components/GlobalStyles";
 import styled from "styled-components";
 
@@ -19,17 +21,27 @@ function App(props) {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/gallery">
+          <Route exact path="/gallery">
             <GalleryPage />
           </Route>
-          <Route path="/gallery/:imageId">Image details</Route>
-          <Route path="/booking/:imageId">
+          <Route exact path="/gallery/:imageId">
+            Image details
+          </Route>
+          <Route exact path="/booking/:imageId">
             <BookingPage />
           </Route>
-          <Route path="/signin">
+          <Route exact path="/signin">
             <SignInPage />
           </Route>
-          <Route path="/confirmation">confirmation</Route>
+          <Route exact path="/confirmation">
+            confirmation
+          </Route>
+          <Route exact path="/events">
+            <EventsPage />
+          </Route>
+          <Route exact path="/events/:eventId">
+            <UpdatePage />
+          </Route>
         </Switch>
         <Footer />
       </Wrapper>
