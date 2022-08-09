@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import LoginButton from "../components/LoginButton";
+import { AuthenticationContext } from "../context/AuthenticationContext";
+import LogoutButton from "./LogoutButton";
+import { useContext } from "react";
 
 const Navbar = () => {
+  const { user, isAuthenticated } = useContext(AuthenticationContext);
+  console.log(user);
   return (
     <Wrapper>
       <Link to="/">Logo</Link>
@@ -10,7 +16,16 @@ const Navbar = () => {
         <Link to="/gallery">Gallery</Link>
         <Link to="/booking">Booking</Link>
       </LinksWrapper>
-      <Link to="/signin">Sign In</Link>
+      <div>
+        {isAuthenticated ? (
+          <>
+            <span>{user.name}</span>
+            <LogoutButton />
+          </>
+        ) : (
+          <LoginButton />
+        )}
+      </div>
     </Wrapper>
   );
 };
@@ -19,6 +34,7 @@ const LinksWrapper = styled.div`
   width: 15%;
   display: flex;
   justify-content: space-between;
+  margin-left: 10px;
 `;
 
 const Wrapper = styled.div`

@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { AuthenticationContext } from "../context/AuthenticationContext";
+import { useContext } from "react";
 
 const GalleryPage = () => {
+  const { isAuthenticated } = useContext(AuthenticationContext);
   const history = useHistory();
   const [images, setImages] = useState(null);
 
@@ -18,7 +21,10 @@ const GalleryPage = () => {
     <Wrapper>
       <ImagesWrapper>
         {images?.data.map((image) => (
-          <Link key={image._id} to={`/booking/${image._id}`}>
+          <Link
+            key={image._id}
+            to={isAuthenticated ? `/booking/${image._id}` : "/signin"}
+          >
             <Img src={image.url} />
           </Link>
         ))}
