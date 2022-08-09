@@ -1,21 +1,33 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { BiCheckCircle } from "react-icons/bi";
+import { BookingContext } from "../context/BookingContext";
 import ColorButton from "../components/ColorButton";
+import { AuthenticationContext } from "../context/AuthenticationContext";
 
 const BookingPage = () => {
-  const [image, setImage] = useState(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [date, setDate] = useState("");
-  const [theme, setTheme] = useState("");
-  const [description, setDescription] = useState("");
-  const [isSelectedColor, setIsSelectedColor] = useState(Array(20).fill(false));
-  const [pickedColors, setPickedColors] = useState([]);
   const { imageId } = useParams();
+  const [image, setImage] = useState(null);
   const history = useHistory();
+  const { user } = useContext(AuthenticationContext);
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastname,
+    postalCode,
+    setPostalCode,
+    date,
+    setDate,
+    theme,
+    setTheme,
+    description,
+    setDescription,
+    pickedColors,
+    isSelectedColor,
+    handleClick,
+    COLORS,
+  } = useContext(BookingContext);
 
   useEffect(() => {
     fetch(`http://localhost:8000/booking/${imageId}`)
@@ -24,49 +36,6 @@ const BookingPage = () => {
         setImage(data.data);
       });
   }, []);
-
-  const COLORS = [
-    "black",
-    "white",
-    "gold",
-    "silver",
-    "red",
-    "#FA8072",
-    "orange",
-    "#a66c08",
-    "#ccbda3",
-    "yellow",
-    "#acf7a1",
-    "#63a649",
-    "green",
-    "turquoise",
-    "lightblue",
-    "blue",
-    "#bf63db",
-    "magenta",
-    "#FFB6C1",
-    "#e6a1f7",
-  ];
-
-  const handleClick = (e, index) => {
-    e.preventDefault();
-    const foundIndex = pickedColors.findIndex(
-      (pickedColor) => pickedColor === e.currentTarget.value
-    );
-    console.log(foundIndex, e.currentTarget);
-    if (foundIndex !== -1) {
-      pickedColors.splice(foundIndex, 1);
-      setPickedColors([...pickedColors]);
-    } else {
-      setPickedColors([...pickedColors, e.currentTarget.value]);
-    }
-
-    const newState = [...isSelectedColor];
-    newState[index] = !newState[index];
-    setIsSelectedColor(newState);
-  };
-
-  console.log(pickedColors);
 
   return (
     <Wrapper>
@@ -77,6 +46,7 @@ const BookingPage = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+              user: user.name,
               firstName,
               lastName,
               postalCode,
@@ -145,9 +115,7 @@ const BookingPage = () => {
                     value={color}
                     color={color}
                     isClicked={isSelectedColor[index]}
-                  >
-                    {/* {isClicked && <BiCheckCircle size={18} color="darkgrey" />} */}
-                  </ColorButton>
+                  />
                 );
               })}
             </ColorsDiv>
@@ -183,7 +151,7 @@ const Button = styled.button`
   width: 100%;
   height: 50px;
   border: none;
-  background-color: lightgreen;
+  background-color: #76e7cd;
   cursor: pointer;
 
   &:active {
@@ -209,24 +177,6 @@ const ImageDiv = styled.div`
 const PickedImage = styled.img`
   width: 100%;
 `;
-
-// const Color = styled.button`
-//   width: 30px;
-//   height: 30px;
-//   border-radius: 5px;
-//   border: none;
-//   background-color: ${(props) => props.color};
-//   margin: 0px;
-//   box-shadow: 0 0 2px rgb(0, 0, 0, 0.5);
-//   cursor: pointer;
-//   transition: 100ms ease-in-out;
-//   margin: 2px;
-
-//   &:hover {
-//     transform: scale(1.1);
-//     transition: 200ms ease-in-out;
-//   }
-// `;
 
 const ColorsDiv = styled.div`
   width: 100%;
