@@ -37,6 +37,7 @@ const BookingPage = () => {
       });
   }, []);
 
+  console.log(image);
   return (
     <Wrapper>
       <Form
@@ -54,6 +55,7 @@ const BookingPage = () => {
               theme,
               pickedColors,
               description,
+              image: image.url,
             }),
           }).then((res) => {
             res.status === 200
