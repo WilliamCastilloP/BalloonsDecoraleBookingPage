@@ -6,15 +6,15 @@ import LogoutButton from "./LogoutButton";
 import { useContext } from "react";
 
 const Navbar = () => {
-  const { user, isAuthenticated } = useContext(AuthenticationContext);
-  console.log(user);
+  const { user, isAuthenticated, isAdmin } = useContext(AuthenticationContext);
+
   return (
     <Wrapper>
       <Link to="/">Logo</Link>
       <LinksWrapper>
         <Link to="/">Home</Link>
         <Link to="/gallery">Gallery</Link>
-        <Link to="/booking">Booking</Link>
+        {isAdmin && <Link to="/events">Booked</Link>}
       </LinksWrapper>
       <div>
         {isAuthenticated ? (
