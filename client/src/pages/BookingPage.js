@@ -2,14 +2,18 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { BookingContext } from "../context/BookingContext";
-import ColorButton from "../components/ColorButton";
 import { AuthenticationContext } from "../context/AuthenticationContext";
+import ColorButton from "../components/ColorButton";
+import Calendar from "react-calendar";
+import Error from "../components/Error";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const BookingPage = () => {
   const { imageId } = useParams();
   const [image, setImage] = useState(null);
   const history = useHistory();
   const { user } = useContext(AuthenticationContext);
+  console.log(user);
   const {
     firstName,
     setFirstName,
@@ -27,6 +31,14 @@ const BookingPage = () => {
     isSelectedColor,
     handleClick,
     COLORS,
+    tileDisabled,
+    isUpdated,
+    setIsUpdated,
+    resetForm,
+    error,
+    setError,
+    isLoading,
+    setIsLoading,
   } = useContext(BookingContext);
 
   useEffect(() => {
@@ -37,9 +49,16 @@ const BookingPage = () => {
       });
   }, []);
 
-  console.log(image);
+  useEffect(() => {
+    setIsUpdated(!isUpdated);
+    resetForm();
+  }, []);
+
+  const errorMessage = "Please, fill the missing info";
   return (
     <Wrapper>
+      Booking form
+      {error && <Error errorMessage={errorMessage} />}
       <Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -47,7 +66,7 @@ const BookingPage = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              user: user.name,
+              user: user,
               firstName,
               lastName,
               postalCode,
@@ -56,12 +75,22 @@ const BookingPage = () => {
               pickedColors,
               description,
               image: image.url,
+              isSelectedColor,
             }),
-          }).then((res) => {
-            res.status === 200
-              ? history.push("/confirmation")
-              : console.log(res);
-          });
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status === 200) {
+                history.push("/confirmation");
+                resetForm();
+              } else {
+                setError(true);
+                setIsLoading(false);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       >
         <ImageDiv>
@@ -69,45 +98,47 @@ const BookingPage = () => {
         </ImageDiv>
         <InputsDiv>
           <div>
-            <Input
-              onChange={(e) => setFirstName(e.target.value)}
-              name={firstName}
-              value={firstName}
-              placeholder="Name"
-              type="text"
-              required
-            />
-            <Input
-              onChange={(e) => setLastname(e.target.value)}
-              name={lastName}
-              value={lastName}
-              placeholder="Lastname"
-              type="text"
-              required
-            />
-            <Input
-              onChange={(e) => setPostalCode(e.target.value)}
-              name={postalCode}
-              value={postalCode}
-              placeholder="Address or postal code"
-              type="text"
-              required
-            />
-            <Input
-              onChange={(e) => setDate(e.target.value)}
-              name={date}
+            <InputsWrapper>
+              <Input
+                onChange={(e) => setFirstName(e.target.value)}
+                name={firstName}
+                value={firstName}
+                placeholder="Name"
+                type="text"
+              />
+              <Input
+                onChange={(e) => setLastname(e.target.value)}
+                name={lastName}
+                value={lastName}
+                placeholder="Lastname"
+                type="text"
+              />
+            </InputsWrapper>
+            <InputsWrapper>
+              <Input
+                onChange={(e) => setPostalCode(e.target.value)}
+                name={postalCode}
+                value={postalCode}
+                placeholder="Address or postal code"
+                type="text"
+              />
+              <Input
+                onChange={(e) => setTheme(e.target.value)}
+                name={theme}
+                value={theme}
+                placeholder="Theme"
+                type="text"
+              />
+            </InputsWrapper>
+            <Calendar
               value={date}
-              type="date"
-              required
+              onChange={setDate}
+              className="calendarDiv"
+              tileClassName="calendarTile"
+              minDate={new Date()}
+              tileDisabled={tileDisabled}
             />
-            <Input
-              onChange={(e) => setTheme(e.target.value)}
-              name={theme}
-              value={theme}
-              placeholder="Theme"
-              type="text"
-              required
-            />
+
             <ColorsDiv>
               {COLORS.map((color, index) => {
                 return (
@@ -124,17 +155,24 @@ const BookingPage = () => {
           </div>
           <Description
             onChange={(e) => setDescription(e.target.value)}
+            value={description}
             rows="4"
             cols="50"
             placeholder="Please, add a brief description of your event"
-            required
           ></Description>
-          <Button type="submit">Request Event</Button>
+          <Button type="submit" onClick={() => setIsLoading(true)}>
+            {isLoading ? <CircularProgress size={20} /> : "Book this event"}
+          </Button>
         </InputsDiv>
       </Form>
     </Wrapper>
   );
 };
+
+const InputsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+`;
 
 const Description = styled.textarea`
   font-size: large;
@@ -206,7 +244,7 @@ const Input = styled.input`
 const Form = styled.form`
   margin-top: 50px;
   display: flex;
-  width: 40%;
+  width: 800px;
   min-height: 60vh;
   /* border: 1px solid red; */
   padding: 20px;
