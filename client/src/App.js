@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import EventsPage from "./pages/EventsPage";
 import GlobalStyles from "./components/GlobalStyles";
 import styled from "styled-components";
+import "../src/calendar.css";
 
 function App(props) {
   return (
@@ -43,8 +44,8 @@ function App(props) {
             <UpdatePage />
           </Route>
         </Switch>
-        <Footer />
       </Wrapper>
+      <Footer />
     </BrowserRouter>
   );
 }
@@ -52,7 +53,8 @@ function App(props) {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 80vh;
+  align-content: space-between;
+  min-height: 78vh;
 `;
 
 export default App;

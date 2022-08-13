@@ -21,6 +21,11 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	:root {
+		--pink: #dd7596;
+		--lightpink:#efd2d7;
+		--darkpink: #d65c83;
+	}
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -29,6 +34,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	font-family: 'Prompt', sans-serif;
 }
 ol, ul {
 	list-style: none;

@@ -12,6 +12,7 @@ const Wrapper = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
 `;
 
 export default Footer;

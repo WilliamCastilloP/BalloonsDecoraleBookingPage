@@ -1,9 +1,15 @@
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { format, parseISO } from "date-fns";
 
-const Event = ({ event }) => {
-  const history = useHistory();
-  console.log(event);
+const Event = ({
+  index,
+  event,
+  setIsUpdated,
+  isUpdated,
+  setEvents,
+  events,
+}) => {
   const handleClick = (e) => {
     e.preventDefault();
     fetch("http://localhost:8000/events/", {
@@ -15,25 +21,34 @@ const Event = ({ event }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.message === "success") {
+          events.splice(index, 1);
+          setEvents([...events]);
+        }
       });
-    window.location.reload(true);
   };
 
   return (
     <Wrapper>
+      <img src={event.image} />
       <p>{`User: ${event.user || "user undefined"}`}</p>
       <p>{`Name: ${event.firstName} ${event.lastName}`}</p>
-      <p>{`Date & Address: ${event.postalCode} - ${event.date}`}</p>
+      <p>{`Date & Address: ${event.postalCode} - ${format(
+        parseISO(event.date),
+        "dd-MM-yyyy"
+      )}`}</p>
       <p>{`Theme & Description: ${event.theme} - ${event.description} `}</p>
       <ColorsDiv>
-        {event.colors?.map((color) => {
-          return <Color key={Math.floor(Math.random() * 1000)} color={color} />;
+        {event.pickedColors?.map((color) => {
+          return (
+            <Color key={Math.floor(Math.random() * 1000000000)} color={color} />
+          );
         })}
       </ColorsDiv>
-      <img src={event.image} />
-      <StyledLink to={`/events/${event._id}`}>Update</StyledLink>
-      <DeleteButton onClick={handleClick}>Delete</DeleteButton>
+      <StyledLink to={`/events/${event._id}`}>Edit decoration</StyledLink>
+      <DeleteButton onClick={handleClick} type="submit" data>
+        Delete decoration
+      </DeleteButton>
     </Wrapper>
   );
 };
