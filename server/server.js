@@ -13,6 +13,8 @@ const {
   updateEvent,
   deleteEvent,
 } = require("./handlers/events/eventsHandler");
+const { getDates } = require("./handlers/dates/dates.handlers");
+const { getUsers } = require("./handlers/users/usersHandlers");
 
 // Calling express and adding .use config
 express()
@@ -33,6 +35,12 @@ express()
   .post("/events", addEvent)
   .put("/events", updateEvent)
   .delete("/events", deleteEvent)
+
+  // this is the dates endpoints
+  .get("/dates", getDates)
+
+  // these are the users endpoints
+  .get("/users", getUsers)
 
   .listen(PORT, () => {
     console.log(`Server app listening on port ${PORT}`);
