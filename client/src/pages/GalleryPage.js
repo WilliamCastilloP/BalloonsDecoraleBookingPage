@@ -1,15 +1,10 @@
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { AuthenticationContext } from "../context/AuthenticationContext";
-import { useContext } from "react";
+import GalleryImage from "../components/GalleryImage";
 
 const GalleryPage = () => {
-  const { isAuthenticated } = useContext(AuthenticationContext);
-  const history = useHistory();
   const [images, setImages] = useState(null);
-
-  useEffect(() => {
+  const imageUrl = useEffect(() => {
     fetch("http://localhost:8000/images").then((res) =>
       res.json().then((data) => {
         setImages(data);
@@ -19,45 +14,50 @@ const GalleryPage = () => {
 
   return (
     <Wrapper>
+      <Banner>
+        It all starts here. Do you have something in mind? Check our image
+        collection and pick the decoration that looks similar to what you
+        looking for!
+      </Banner>
       <ImagesWrapper>
-        {images?.data.map((image) => (
-          <Link
-            key={image._id}
-            to={isAuthenticated ? `/booking/${image._id}` : "/signin"}
-          >
-            <Img src={image.url} />
-          </Link>
-        ))}
+        {images?.data.map((image) => {
+          return <GalleryImage image={image} />;
+        })}
       </ImagesWrapper>
     </Wrapper>
   );
 };
 
+const Banner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-image: url("https://images.unsplash.com/photo-1499675561012-307e6191ea68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+  background-size: cover;
+  background-position-x: 20%;
+  background-position-y: 100%;
+  background-repeat: no-repeat;
+  height: 700px;
+  width: 100%;
+`;
+
 const ImagesWrapper = styled.div`
-  /* width: 80%;
+  height: fit-content;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; */
+  justify-content: center;
+  padding: 20px 0;
+  margin-top: 50px;
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
-  min-height: 80vh;
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-`;
-
-const Img = styled.img`
-  /* cursor: zoom-in;
-  position: absolute; */
-  width: 30%;
-  margin: 5px;
-  transition: 200ms ease-in-out;
-  &:hover {
-    box-shadow: 0 0 20px rgb(0, 0, 0, 1);
-    transition: 100ms ease-in-out;
-    transform: scale(1.03);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
 `;
 
 export default GalleryPage;
