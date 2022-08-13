@@ -1,43 +1,22 @@
-import { createContext } from "react";
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { differenceInCalendarDays, parseISO } from "date-fns";
+import { COLORS } from "../constans";
 
 export const BookingContext = createContext(null);
 
 const BookingProvider = ({ children }) => {
-  const [image, setImage] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastname] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [theme, setTheme] = useState("");
   const [description, setDescription] = useState("");
   const [isSelectedColor, setIsSelectedColor] = useState(Array(20).fill(false));
   const [pickedColors, setPickedColors] = useState([]);
-
-  const COLORS = [
-    "black",
-    "white",
-    "gold",
-    "silver",
-    "red",
-    "#FA8072",
-    "orange",
-    "#a66c08",
-    "#edebda",
-    "#ccbda3",
-    "yellow",
-    "#acf7a1",
-    "#63a649",
-    "green",
-    "turquoise",
-    "lightblue",
-    "#0390fc",
-    "blue",
-    "#bf63db",
-    "magenta",
-    "#FFB6C1",
-    "#e6a1f7",
-  ];
+  const [reservedDates, setReservedDates] = useState([]);
+  const [isUpdated, setIsUpdated] = useState(false);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = (e, index) => {
     e.preventDefault();
@@ -54,7 +33,67 @@ const BookingProvider = ({ children }) => {
 
     const newState = [...isSelectedColor];
     newState[index] = !newState[index];
+    console.log(newState);
     setIsSelectedColor(newState);
+  };
+
+  let reservedDatesArray = [];
+  reservedDates.forEach((reservedDate) => {
+    reservedDatesArray.push(parseISO(reservedDate.date));
+  });
+
+  const isSameDay = (a, b) => {
+    return differenceInCalendarDays(a, b) === 0;
+  };
+
+  const tileDisabled = ({ date, view }) => {
+    if (
+      view === "month" &&
+      reservedDatesArray.find((dDate) => isSameDay(dDate, date))
+    ) {
+      return true;
+    }
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:8000/dates")
+      .then((res) => res.json())
+      .then((data) => {
+        setReservedDates(data.foundDates);
+      });
+  }, [isUpdated]);
+
+  const resetForm = () => {
+    setFirstName("");
+    setLastname("");
+    setPostalCode("");
+    setDate(new Date());
+    setTheme("");
+    setDescription("");
+    setPickedColors([]);
+    setIsSelectedColor(Array(20).fill(false));
+    setError(false);
+    setIsLoading(false);
+  };
+
+  const fillData = (previousData) => {
+    setIsUpdated(!isUpdated);
+    setFirstName(previousData.firstName);
+    setLastname(previousData.lastName);
+    setPostalCode(previousData.postalCode);
+    setTheme(previousData.theme);
+    setDescription(previousData.description);
+
+    if (previousData.isSelectedColor) {
+      let clickedColors = [];
+      previousData.isSelectedColor.forEach((e, index) => {
+        if (e) {
+          clickedColors.push(COLORS[index]);
+        }
+      });
+      setPickedColors(clickedColors);
+      setIsSelectedColor(previousData.isSelectedColor);
+    }
   };
 
   return (
@@ -74,8 +113,21 @@ const BookingProvider = ({ children }) => {
         setDescription,
         handleClick,
         pickedColors,
+        setPickedColors,
         isSelectedColor,
+        setIsSelectedColor,
+        reservedDates,
+        setReservedDates,
+        tileDisabled,
         COLORS,
+        isUpdated,
+        setIsUpdated,
+        resetForm,
+        fillData,
+        error,
+        setError,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
