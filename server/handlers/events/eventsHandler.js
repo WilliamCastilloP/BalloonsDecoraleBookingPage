@@ -15,6 +15,8 @@ const addEvent = async (req, res) => {
     isSelectedColor,
   } = req.body;
   const userSub = user.sub;
+  const userName = user.name;
+  console.log(userName, user);
   if (
     pickedColors.length < 1 ||
     !firstName ||
@@ -29,7 +31,19 @@ const addEvent = async (req, res) => {
       res.status(400).json({ status: 400, message: "error", data: req.body });
     }, 1000);
   } else {
-    const newEventObj = { _id, ...req.body };
+    const newEventObj = {
+      _id,
+      user: userName,
+      firstName,
+      lastName,
+      postalCode,
+      date,
+      theme,
+      description,
+      isSelectedColor,
+      pickedColors,
+      ...req.body,
+    };
     const newDateObj = { _id, date };
     const newUserObj = { _id: userSub, user };
     const added = await db.collection("events").insertOne(newEventObj);
@@ -127,10 +141,16 @@ const updateEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   const { _id } = req.body;
 
-  const deleted = await db.collection("events").deleteOne({ _id });
-
-  deleted.acknowledged
-    ? res.status(200).json({ status: 200, message: "success", deleted, _id })
+  const deletedEvent = await db.collection("events").deleteOne({ _id });
+  const deletedDate = await db.collection("dates").deleteOne({ _id });
+  deletedEvent.acknowledged && deletedDate.acknowledged
+    ? res.status(200).json({
+        status: 200,
+        message: "success",
+        deletedEvent,
+        deletedDate,
+        _id,
+      })
     : res.status(400).json({ status: 400, message: "error", _id });
 };
 
