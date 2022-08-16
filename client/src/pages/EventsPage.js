@@ -33,7 +33,6 @@ const EventsPage = () => {
     return eventA - eventB;
   });
 
-  console.log(events);
   return (
     <Wrapper>
       {isLoading ? (

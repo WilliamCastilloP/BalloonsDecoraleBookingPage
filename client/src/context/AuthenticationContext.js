@@ -6,7 +6,7 @@ export const AuthenticationContext = createContext(null);
 const Auth0ContextProvider = ({ children }) => {
   const { isLoading, isAuthenticated, error, user, loginWithRedirect, logout } =
     useAuth0();
-  const admin = "auth0|62f19d51c0c6c7196cf528d3";
+  const admin = process.env.REACT_APP_ADMIN_SUB;
 
   let isAdmin = false;
   if (user?.sub == admin) {
