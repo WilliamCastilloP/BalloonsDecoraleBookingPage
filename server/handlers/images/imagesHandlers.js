@@ -12,9 +12,11 @@ const getImage = async (req, res) => {
   const foundImage = await db.collection("images").findOne({ _id });
 
   foundImage
-    ? res
-        .status(200)
-        .json({ status: 200, message: "success", data: foundImage })
+    ? setTimeout(() => {
+        res
+          .status(200)
+          .json({ status: 200, message: "success", data: foundImage });
+      }, 2000)
     : res
         .status(404)
         .json({ status: 404, message: `Image with id ${imageId} not found` });

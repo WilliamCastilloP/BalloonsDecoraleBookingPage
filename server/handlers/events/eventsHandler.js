@@ -76,8 +76,9 @@ const addEvent = async (req, res) => {
 
 const getEvents = async (req, res) => {
   const foundEvents = await db.collection("events").find().toArray();
-
-  res.status(200).json({ status: 200, message: "success", foundEvents });
+  setTimeout(() => {
+    res.status(200).json({ status: 200, message: "success", foundEvents });
+  }, 1000);
 };
 
 const getEvent = async (req, res) => {
