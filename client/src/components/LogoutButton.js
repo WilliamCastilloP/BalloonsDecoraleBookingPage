@@ -6,8 +6,8 @@ import { AuthenticationContext } from "../context/AuthenticationContext";
 const LogoutButton = (props) => {
   const { logout } = useContext(AuthenticationContext);
   return (
-    <Button onClick={() => logout()}>
-      <i class="fa-solid fa-arrow-right-to-bracket"></i> <span>Logout</span>
+    <Button className="btn" onClick={() => logout()}>
+      <i className="fa-solid fa-arrow-right-to-bracket"></i> <span>Logout</span>
     </Button>
   );
 };
@@ -27,6 +27,10 @@ const Button = styled.button`
   }
 
   span {
+    margin-left: 5px;
+  }
+
+  @media (max-width: 1100px) {
     margin-left: 5px;
   }
 `;

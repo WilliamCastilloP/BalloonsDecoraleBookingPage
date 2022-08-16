@@ -27,11 +27,7 @@ const UpdatePage = () => {
     isSelectedColor,
     handleClick,
     COLORS,
-    setPickedColors,
-    setIsSelectedColor,
     tileDisabled,
-    isUpdated,
-    setIsUpdated,
     fillData,
     error,
     setError,
@@ -49,7 +45,8 @@ const UpdatePage = () => {
 
   return (
     <Wrapper>
-      Update Form
+      <FormTitle>Update Form</FormTitle>
+
       {error && <Error errorMessage={errorMessage} />}
       <Form
         onSubmit={(e) => {
@@ -149,12 +146,17 @@ const UpdatePage = () => {
             cols="50"
             placeholder="Please, add a brief description of your event"
           ></Description>
-          <Button type="submit">Request Event</Button>
+          <Button type="submit">Update Decoration</Button>
         </InputsDiv>
       </Form>
     </Wrapper>
   );
 };
+
+const FormTitle = styled.p`
+  margin: 50px 0 0 0;
+  color: var(--pink);
+`;
 
 const InputsWrapper = styled.div`
   width: 100%;
@@ -174,15 +176,22 @@ const Description = styled.textarea`
 `;
 
 const Button = styled.button`
-  border-radius: 10px;
+  border-radius: 5px;
   width: 100%;
   height: 50px;
   border: none;
-  background-color: #76e7cd;
+  background-color: var(--pink);
+  color: var(--lighterpink);
+  font-weight: 600;
+  font-size: 1.2em;
   cursor: pointer;
 
   &:active {
     transform: scale(0.99);
+  }
+
+  &:hover {
+    background-color: var(--darkpink);
   }
 `;
 
@@ -229,12 +238,13 @@ const Input = styled.input`
 `;
 
 const Form = styled.form`
-  margin-top: 50px;
+  margin: 50px 0;
   display: flex;
-  width: 800px;
+  width: 1000px;
   min-height: 60vh;
-  /* border: 1px solid red; */
+  /* border: 1px solid green; */
   padding: 20px;
+  box-shadow: 0 0 3px rgb(0, 0, 0, 0.2);
 `;
 
 const Wrapper = styled.div`

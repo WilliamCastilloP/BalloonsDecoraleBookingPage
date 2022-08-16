@@ -4,26 +4,33 @@ import LoginButton from "../components/LoginButton";
 const SignInPage = () => {
   return (
     <Wrapper>
-      Please login to book an event
-      <LoginButton />
+      <LoginCard>
+        <LoginMessage>Please login before booking a decoration</LoginMessage>
+        <LoginButton />
+      </LoginCard>
     </Wrapper>
   );
 };
 
-const Input = styled.input`
-  margin: 10px;
-  padding: 5px;
-  width: 80%;
-`;
-
-const Form = styled.form`
-  width: 400px;
+const LoginCard = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  height: fit-content;
-  border: 1px solid red;
-  margin-top: 50px;
+  width: 300px;
+  height: 300px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+  padding: 50px;
+  text-align: center;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  border-radius: 5px;
+`;
+
+const LoginMessage = styled.p`
+  font-size: 1.1em;
+  margin-bottom: 30px;
 `;
 
 const Wrapper = styled.div`

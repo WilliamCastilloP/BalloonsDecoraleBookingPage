@@ -1,13 +1,25 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GalleryImage from "../components/GalleryImage";
+import { BookingContext } from "../context/BookingContext";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const GalleryPage = () => {
   const [images, setImages] = useState(null);
-  const imageUrl = useEffect(() => {
+  const { isLoading, setIsLoading } = useContext(BookingContext);
+  window.scrollTo(0, 0);
+
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
+
+  useEffect(() => {
     fetch("http://localhost:8000/images").then((res) =>
       res.json().then((data) => {
-        setImages(data);
+        if (res.status === 200) {
+          setIsLoading(false);
+          setImages(data);
+        }
       })
     );
   }, []);
@@ -15,25 +27,55 @@ const GalleryPage = () => {
   return (
     <Wrapper>
       <Banner>
-        It all starts here. Do you have something in mind? Check our image
-        collection and pick the decoration that looks similar to what you
-        looking for!
+        <BannerText>
+          <FirstPart>Everything starts here.</FirstPart>
+          <SecondPart>
+            Check our gallery images and pick the one that looks similar to what
+            you're looking for!
+          </SecondPart>
+        </BannerText>
       </Banner>
       <ImagesWrapper>
-        {images?.data.map((image) => {
-          return <GalleryImage image={image} />;
-        })}
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          images?.data.map((image) => {
+            return <GalleryImage key={image._id} image={image} />;
+          })
+        )}
       </ImagesWrapper>
     </Wrapper>
   );
 };
 
+const SecondPart = styled.span`
+  width: 100%;
+  font-size: 1.5em;
+  background-color: var(--pink);
+  padding: 10px;
+`;
+
+const FirstPart = styled.span`
+  width: 100%;
+  font-size: 4em;
+  margin-bottom: 20px;
+  color: var(--pink);
+  padding: 10px;
+`;
+
+const BannerText = styled.p`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  align-items: flex-start;
+`;
+
 const Banner = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   color: white;
-  background-image: url("https://images.unsplash.com/photo-1499675561012-307e6191ea68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+  background-image: url("https://wallpaperaccess.com/full/1555599.jpg");
   background-size: cover;
   background-position-x: 20%;
   background-position-y: 100%;
@@ -44,20 +86,22 @@ const Banner = styled.div`
 
 const ImagesWrapper = styled.div`
   height: fit-content;
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px 0;
-  margin-top: 50px;
+  margin-top: 20px;
+  background-color: var(--lighterpink);
 `;
 
 const Wrapper = styled.div`
+  background-color: var(--lighterpink);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  min-height: 78vh;
 `;
 
 export default GalleryPage;

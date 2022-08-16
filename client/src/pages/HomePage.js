@@ -1,23 +1,42 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 
 const HomePage = (props) => {
   const imageUrl =
-    "https://images.unsplash.com/photo-1657382451868-948d29b28f87?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80";
+    "https://res.cloudinary.com/dpr59qtfp/image/upload/v1660502503/balloons%20decolare%20gallery/pink_balloons-wallpaper-1920x1080_h01mui.jpg";
   return (
     <Wrapper>
       <Banner imageUrl={imageUrl} />
       <Content>
-        <p>
-          Browse our gallery of beautiful balloons decorations, plan your next
-          event, make reservations and much more!
-        </p>
+        <WelcomeDiv>
+          <Text>Welcome to Balloons Decorale booking page.</Text>
+          <WelcomeText>
+            <Text>
+              Browse our gallery of beautiful balloons decorations, plan your
+              next event, make reservations and much more!
+            </Text>
+          </WelcomeText>
+        </WelcomeDiv>
         <StyledLink to="/gallery">Get Started</StyledLink>
       </Content>
     </Wrapper>
   );
 };
+
+const Text = styled.span`
+  margin: 20px;
+`;
+const WelcomeText = styled.div`
+  margin: 20px 0;
+`;
+
+const WelcomeDiv = styled.div`
+  width: 70%;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 600;
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -25,14 +44,24 @@ const StyledLink = styled(Link)`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  width: fit-content;
+  width: 170px;
+  height: 50px;
   font-size: 1.5em;
   font-weight: 600;
   color: white;
-  height: 50px;
-  background: var(--pink);
+  background-color: var(--darkpink);
   margin-top: 50px;
-  border-radius: 15px;
+  border-radius: 5px;
+  transition: 200ms ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+  &:hover {
+    transform: translateY(-5%);
+  }
 `;
 
 const Content = styled.div`
@@ -44,11 +73,17 @@ const Content = styled.div`
   width: 100%;
   height: 600px;
   padding: 0 200px;
-  background-color: var(--lightpink);
+  background-color: var(--lighterpink);
   color: var(--pink);
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 500;
+
+  @media (max-width: 1170px) {
+    padding: 0 100px;
+  }
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+`;
 export default HomePage;

@@ -4,14 +4,14 @@ import { BiCheckCircle } from "react-icons/bi";
 const ColorButton = ({ handleClick, color, isClicked, value }) => {
   return (
     <Button onClick={handleClick} color={color} value={value}>
-      {isClicked && <BiCheckCircle />}
+      {isClicked && <BiCheckCircle size={20} />}
     </Button>
   );
 };
 
 const Button = styled.button`
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 5px;
   border: none;
   background-color: ${(props) => props.color};
@@ -20,6 +20,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: 100ms ease-in-out;
   margin: 2px;
+  color: ${({ color }) => (color === "black" ? "darkgrey" : "black")};
 
   &:hover {
     transform: scale(1.1);

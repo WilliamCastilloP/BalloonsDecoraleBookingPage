@@ -2,19 +2,18 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { AuthenticationContext } from "../context/AuthenticationContext";
-let backgroundImage = "";
+
 const GalleryImage = ({ image }) => {
   const { isAuthenticated } = useContext(AuthenticationContext);
-  backgroundImage = image;
+
   return (
-    // <Wrapper image={image.url} className="wrapper">
     <Wrapper>
       <Img src={image.url} />
       <Overlay>
         <StyledLink
           className="styledLink"
           key={image._id}
-          to={isAuthenticated ? `/booking/${image._id}` : "/signin"}
+          to={`/booking/${image._id}`}
         >
           Book this decoration
         </StyledLink>
@@ -25,20 +24,21 @@ const GalleryImage = ({ image }) => {
 
 const StyledLink = styled(Link)`
   position: absolute;
-  top: 82%;
-  left: 60%;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-decoration: none;
   height: 50px;
-  width: 100px;
+  width: 100%;
   background-color: var(--pink);
-  border: 2px solid lightgray;
-  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 2px;
   color: white;
-  display: none;
+  display: flex;
+  opacity: 0;
+  transition: all 200ms ease-in-out;
 
   &:hover {
     background-color: var(--darkpink);
@@ -53,15 +53,11 @@ const Overlay = styled.div`
   height: 100%;
   background: rgb(0, 0, 0, 0.4);
   opacity: 0;
-  transition: opacity 150ms;
+  transition: opacity 200ms ease-in-out;
   border-radius: 2px;
 
   &:hover {
     opacity: 1;
-  }
-
-  &:hover .styledLink {
-    display: flex;
   }
 `;
 
@@ -77,8 +73,22 @@ const Wrapper = styled.div`
   height: 430px;
   position: relative;
   margin: 10px;
-  transition: transform 200ms;
+  transition: transform 200ms ease-in-out;
   border-radius: 2px;
+  &:hover .styledLink {
+    top: 50%;
+    opacity: 1;
+  }
+
+  @media (max-width: 1330px) {
+    width: 530px;
+    height: 630px;
+  }
+  @media (max-width: 1145px) {
+    width: 630px;
+    height: 730px;
+    margin: 20px;
+  }
 `;
 
 export default GalleryImage;

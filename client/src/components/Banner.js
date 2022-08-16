@@ -6,7 +6,7 @@ const Banner = ({ imageUrl }) => {
       <TitleContainer>
         {/* <FirstPart>Welcome to</FirstPart>  */}
         <SecondPart>Balloons</SecondPart>
-        <ThirdPart>Decorale</ThirdPart>
+        <ThirdPart className="third-part">Decorale</ThirdPart>
       </TitleContainer>
     </Wrapper>
   );
@@ -27,6 +27,20 @@ const ThirdPart = styled.span`
   display: flex;
   justify-content: center;
   padding: 10px;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    margin-left: 0;
+  }
+
+  @media (max-width: 780px) {
+    font-size: 5em;
+    margin-left: 180px;
+  }
+  @media (max-width: 600px) {
+    margin-left: 110px;
+    font-size: 3em;
+  }
 `;
 
 const SecondPart = styled.span`
@@ -38,6 +52,13 @@ const SecondPart = styled.span`
   justify-content: center;
   padding: 10px;
   margin-bottom: 20px;
+
+  @media (max-width: 780px) {
+    font-size: 5em;
+  }
+  @media (max-width: 600px) {
+    font-size: 3em;
+  }
 `;
 
 const FirstPart = styled.span`
@@ -59,6 +80,10 @@ const Wrapper = styled.div`
   background-repeat: no-repeat;
   height: 700px;
   width: 100%;
+
+  &:hover .third-part {
+    margin-left: 0;
+  }
 `;
 
 export default Banner;

@@ -25,6 +25,9 @@ time, mark, audio, video {
 		--pink: #dd7596;
 		--lightpink:#efd2d7;
 		--darkpink: #d65c83;
+		--lighterpink: #fcece8;
+		--blue: #2d3047;
+		--turquoise: #95d9da;
 	}
 }
 /* HTML5 display-role reset for older browsers */

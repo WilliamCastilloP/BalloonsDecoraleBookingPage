@@ -33,7 +33,6 @@ const BookingProvider = ({ children }) => {
 
     const newState = [...isSelectedColor];
     newState[index] = !newState[index];
-    console.log(newState);
     setIsSelectedColor(newState);
   };
 

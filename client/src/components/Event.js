@@ -1,5 +1,5 @@
-import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 
 const Event = ({
@@ -30,61 +30,138 @@ const Event = ({
 
   return (
     <Wrapper>
-      <img src={event.image} />
-      <p>{`User: ${event.user || "user undefined"}`}</p>
-      <p>{`Name: ${event.firstName} ${event.lastName}`}</p>
-      <p>{`Date & Address: ${event.postalCode} - ${format(
-        parseISO(event.date),
-        "dd-MM-yyyy"
-      )}`}</p>
-      <p>{`Theme & Description: ${event.theme} - ${event.description} `}</p>
-      <ColorsDiv>
-        {event.pickedColors?.map((color) => {
-          return (
-            <Color key={Math.floor(Math.random() * 1000000000)} color={color} />
-          );
-        })}
-      </ColorsDiv>
-      <StyledLink to={`/events/${event._id}`}>Edit decoration</StyledLink>
-      <DeleteButton onClick={handleClick} type="submit" data>
-        Delete decoration
-      </DeleteButton>
+      <EventImage>
+        <Img src={event.image} />
+        <EventDetails className="events-details">
+          <Info>{`${event.user.name || "user undefined"}`}</Info>
+          {/* <p>{`${event.firstName} ${event.lastName}`}</p> */}
+          <Info>{`Theme: ${event.theme}`}</Info>
+          <Info>{`Description: ${event.description} `}</Info>
+          <ColorsDiv>
+            {event.pickedColors?.map((color) => {
+              return (
+                <Color
+                  key={Math.floor(Math.random() * 1000000000)}
+                  color={color}
+                />
+              );
+            })}
+          </ColorsDiv>
+        </EventDetails>
+      </EventImage>
+      <Date>{`${format(parseISO(event.date), "dd-MM-yyyy")}`}</Date>
+      <Actions>
+        <StyledLink to={`/events/${event._id}`}>
+          <i className="fa-solid fa-pen-to-square"></i>
+        </StyledLink>
+        <DeleteButton onClick={handleClick} type="submit">
+          <i className="fa-solid fa-trash"></i>
+        </DeleteButton>
+      </Actions>
     </Wrapper>
   );
 };
 
+const Info = styled.p`
+  margin-bottom: 10px;
+`;
+
+const Date = styled.p`
+  text-align: center;
+  font-size: 1.3em;
+  background-color: var(--pink);
+  color: white;
+  margin-top: auto;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+`;
+
+const EventImage = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 2px;
+
+  &:hover .events-details {
+    bottom: 0;
+    opacity: 1;
+  }
+`;
+const EventDetails = styled.div`
+  opacity: 0;
+  flex-direction: column;
+  align-content: space-between;
+  position: absolute;
+  bottom: -10px;
+  background-color: rgb(0, 0, 0, 0.7);
+  color: lightgray;
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all 200ms ease-in-out;
+`;
+const Actions = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  border-radius: 2px;
+`;
+
 const DeleteButton = styled.button`
   text-decoration: none;
-  font-size: large;
-  color: white;
-  width: fit-content;
-  height: 30px;
+  font-size: 1em;
+  width: 50%;
+  height: 100%;
   border: none;
-  background-color: red;
+  background-color: white;
+  color: red;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px;
   cursor: pointer;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    background-color: red;
+    color: white;
+  }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
-  width: fit-content;
-  height: 30px;
+  font-size: 1em;
+  color: orange;
+  width: 50%;
+  height: 100%;
   border: none;
-  background-color: orange;
+  background-color: white;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    background-color: orange;
+    color: white;
+  }
 `;
 
 const ColorsDiv = styled.div`
   display: flex;
+  margin-bottom: 10px;
 `;
 
 const Color = styled.div`
@@ -94,19 +171,17 @@ const Color = styled.div`
 `;
 
 const Wrapper = styled.div`
+  width: 250px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin: 20px;
   background-color: lightyellow;
+  box-shadow: 2px 2px 10px rgb(0, 0, 0, 0.2);
+  border-radius: 2px;
 
-  p {
-    height: 30px;
-    font-size: large;
-  }
-
-  img {
-    width: 200px;
+  @media (max-width: 900px) {
+    width: 450px;
   }
 `;
 
