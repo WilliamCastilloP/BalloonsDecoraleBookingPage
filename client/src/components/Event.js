@@ -172,6 +172,7 @@ const Color = styled.div`
 
 const Wrapper = styled.div`
   width: 250px;
+  height: 400px;
   display: flex;
   justify-content: center;
   flex-direction: column;

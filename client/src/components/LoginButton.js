@@ -6,7 +6,8 @@ const LoginButton = (props) => {
   const { loginWithRedirect } = useAuth0();
   return (
     <Button onClick={() => loginWithRedirect()}>
-      <i className="fa-solid fa-arrow-right-to-bracket"></i> <span>Login</span>
+      <span>Login</span>
+      <i className="fa-solid fa-arrow-right-to-bracket"></i>
     </Button>
   );
 };
@@ -25,7 +26,14 @@ const Button = styled.button`
   }
 
   span {
-    margin-left: 5px;
+    margin-right: 10px;
+  }
+
+  @media (max-width: 600px) {
+    width: 40px;
+    span {
+      display: none;
+    }
   }
 `;
 

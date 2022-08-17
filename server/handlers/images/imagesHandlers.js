@@ -1,11 +1,13 @@
 const { db } = require("../../db/client");
 
+// retrieves all images in the db
 const getImages = async (req, res) => {
   const images = await db.collection("images").find().toArray();
 
   res.status(200).json({ status: 200, message: "success", data: images });
 };
 
+// retrieves a single image by image ID
 const getImage = async (req, res) => {
   const { imageId } = req.params;
   const _id = imageId;

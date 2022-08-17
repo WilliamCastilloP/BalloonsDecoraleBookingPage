@@ -1,10 +1,11 @@
 "use strict";
-
+// REQUIRING
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+// This is the port constant
 const PORT = 8000;
-// importing our handlers
+// importing our ednpoint handlers
 const { getImages, getImage } = require("./handlers/images/imagesHandlers");
 const {
   addEvent,
@@ -25,22 +26,34 @@ express()
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
 
-  // These are the images endpoints
+  // ALL THE ENDPOINTS START HERE//////////////
+
+  // IMAGES ENDPOINTS ///////
+  // serves all the images in the db
   .get("/images", getImages)
+  // serves a image using the id
   .get("/booking/:imageId", getImage)
 
-  // These are the events endpoints
+  // EVENTS ENDPOINTS ///////
+  // serves all the events
   .get("/events", getEvents)
+  // serves an event by id
   .get("/events/:eventId", getEvent)
+  // creates a new event
   .post("/events", addEvent)
+  // this endpoint will update a booked event
   .put("/events", updateEvent)
+  // deletes a booked event
   .delete("/events", deleteEvent)
 
-  // this is the dates endpoints
+  // DATES ENDPOINTS ///////
+  // serves all the dates booked
   .get("/dates", getDates)
 
-  // these are the users endpoints
+  // USERS ENDPOINTS ////////
+  // serves all users
   .get("/users", getUsers)
+  // ENDPOINTS ENDS HERE
 
   .listen(PORT, () => {
     console.log(`Server app listening on port ${PORT}`);

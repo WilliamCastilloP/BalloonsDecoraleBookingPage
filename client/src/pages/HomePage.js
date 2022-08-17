@@ -51,7 +51,7 @@ const StyledLink = styled(Link)`
   color: white;
   background-color: var(--darkpink);
   margin-top: 50px;
-  border-radius: 5px;
+  border-radius: 50px;
   transition: 200ms ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
     rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
@@ -80,6 +80,9 @@ const Content = styled.div`
 
   @media (max-width: 1170px) {
     padding: 0 100px;
+  }
+  @media (max-width: 640px) {
+    padding: 0 20px;
   }
 `;
 

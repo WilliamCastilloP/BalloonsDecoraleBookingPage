@@ -10,8 +10,8 @@ const ColorButton = ({ handleClick, color, isClicked, value }) => {
 };
 
 const Button = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 5px;
   border: none;
   background-color: ${(props) => props.color};

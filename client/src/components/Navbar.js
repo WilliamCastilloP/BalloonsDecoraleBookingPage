@@ -13,7 +13,7 @@ const Navbar = () => {
     <Wrapper>
       <StyledLink to="/">
         <Logo>
-          <LogoImg src="https://res.cloudinary.com/dpr59qtfp/image/upload/v1660498094/balloons%20decolare%20gallery/Peachpuff_Brush_Stroke_Photography_Logo_y3dvfd.png" />
+          <LogoImg src="https://res.cloudinary.com/dpr59qtfp/image/upload/v1660708483/balloons%20decolare%20gallery/LOGOFINAL_zt4q0q.jpg" />
         </Logo>
       </StyledLink>
       <LinksWrapper className="links-wrapper">
@@ -24,13 +24,22 @@ const Navbar = () => {
           className={isClicked ? "links-div-active" : "links-div-hidden"}
         >
           <StyledNavLink onClick={() => setIsClicked(false)} to="/">
+            <Icon>
+              <i className="fa-solid fa-house"></i>
+            </Icon>
             Home
           </StyledNavLink>
           <StyledNavLink onClick={() => setIsClicked(false)} to="/gallery">
+            <Icon>
+              <i className="fa-solid fa-image"></i>
+            </Icon>
             Gallery
           </StyledNavLink>
           {isAdmin ? (
             <StyledNavLink onClick={() => setIsClicked(false)} to="/events">
+              <Icon>
+                <i className="fa-solid fa-calendar-check"></i>
+              </Icon>
               Booked Decorations
             </StyledNavLink>
           ) : (
@@ -39,6 +48,9 @@ const Navbar = () => {
                 onClick={() => setIsClicked(false)}
                 to="/booked-decoration"
               >
+                <Icon>
+                  <i className="fa-solid fa-calendar-check"></i>
+                </Icon>
                 Currently booked
               </StyledNavLink>
             )
@@ -61,6 +73,11 @@ const Navbar = () => {
     </Wrapper>
   );
 };
+
+const Icon = styled.span`
+  margin-right: 5px;
+  font-size: 1.1em;
+`;
 
 const LinksDiv = styled.div`
   display: flex;
@@ -85,15 +102,14 @@ const Burger = styled.button`
 `;
 
 const LogoImg = styled.img`
-  width: 120px;
-  height: 100px;
+  width: 150px;
+  height: 130px;
 `;
 
 const UserImg = styled.img`
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  margin-right: 10px;
 `;
 
 const UserContainer = styled.div`
@@ -112,6 +128,7 @@ const Logo = styled.span`
 
 const Username = styled.span`
   color: grey;
+  margin: 0 10px;
 `;
 
 const StyledLink = styled(Link)`
@@ -129,6 +146,7 @@ const StyledNavLink = styled(NavLink)`
   width: fit-content;
   text-align: center;
   padding: 10px;
+  margin-right: 10px;
 
   &:hover {
     color: var(--darkpink);
@@ -141,7 +159,7 @@ const LinksWrapper = styled.div`
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  width: 30%;
+  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -158,7 +176,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1350px) {
     .user-name {
       display: none;
     }
@@ -171,7 +189,7 @@ const Wrapper = styled.div`
       transform: translate(-50%);
       flex-direction: column;
       background-color: white;
-      width: 99vw;
+      width: 100vw;
       box-sizing: border-box;
       padding: 0;
       margin: 0;
@@ -193,6 +211,24 @@ const Wrapper = styled.div`
       padding: 10px 0;
     }
   }
+
+  @media screen and (max-width: 445px) {
+    .links-div-active {
+      position: absolute;
+      top: 87px;
+      left: 50%;
+      transform: translate(-50%);
+      flex-direction: column;
+      background-color: white;
+      width: 100vw;
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      transition: all 200ms ease-in-out;
+      padding: 10px 0;
+    }
+  }
+
   @media screen and (min-width: 1170px) {
     .burger {
       display: none;

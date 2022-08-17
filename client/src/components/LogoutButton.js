@@ -7,13 +7,12 @@ const LogoutButton = (props) => {
   const { logout } = useContext(AuthenticationContext);
   return (
     <Button className="btn" onClick={() => logout()}>
-      <i className="fa-solid fa-arrow-right-to-bracket"></i> <span>Logout</span>
+      <span>Logout</span> <i className="fa-solid fa-arrow-right-to-bracket"></i>
     </Button>
   );
 };
 
 const Button = styled.button`
-  margin-left: 20px;
   border: 0;
   background-color: var(--pink);
   color: white;
@@ -27,11 +26,18 @@ const Button = styled.button`
   }
 
   span {
-    margin-left: 5px;
+    margin-right: 6px;
   }
 
-  @media (max-width: 1100px) {
-    margin-left: 5px;
+  @media (max-width: 1350px) {
+    margin-left: 10px;
+  }
+
+  @media (max-width: 600px) {
+    width: 40px;
+    span {
+      display: none;
+    }
   }
 `;
 

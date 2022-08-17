@@ -116,8 +116,6 @@ const Wrapper = styled.footer`
   font-size: 1.2em;
 
   @media (max-width: 1170px) {
-    /* flex-direction: column;
-    height: fit-content; */
     padding: 20px 20px;
 
     .info-container {

@@ -36,6 +36,8 @@ const UserBookedDecoration = () => {
     <Wrapper>
       {isLoading ? (
         <CircularProgress />
+      ) : events?.length < 1 ? (
+        <p>No decoration has been booked yet.</p>
       ) : (
         <EventsContainer>
           {userBookedEvents.map((bookedEvent) => {
@@ -114,7 +116,7 @@ const EventsContainer = styled.div`
 `;
 
 const Img = styled.img`
-  width: 250px;
+  width: 350px;
   height: 100%;
   display: block;
 
@@ -124,7 +126,7 @@ const Img = styled.img`
 `;
 
 const Event = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   height: fit-content;
   background-color: var(--lightpink);

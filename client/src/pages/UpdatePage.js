@@ -5,10 +5,13 @@ import { BookingContext } from "../context/BookingContext";
 import ColorButton from "../components/ColorButton";
 import Calendar from "react-calendar";
 import Error from "../components/Error";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const UpdatePage = () => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
+  const [error, setError] = useState({ status: false, message: "" });
+  const [isImageLoaded, setIsImageLoaded] = useState(true);
   const history = useHistory();
   const {
     firstName,
@@ -29,25 +32,27 @@ const UpdatePage = () => {
     COLORS,
     tileDisabled,
     fillData,
-    error,
-    setError,
   } = useContext(BookingContext);
-  const errorMessage = "Please, fill in the missing information to update";
 
   useEffect(() => {
     fetch(`http://localhost:8000/events/${eventId}`)
       .then((res) => res.json())
       .then((data) => {
+        setIsImageLoaded(false);
         setEvent(data);
         fillData(data.found);
       });
+  }, []);
+
+  useEffect(() => {
+    setIsImageLoaded(true);
   }, []);
 
   return (
     <Wrapper>
       <FormTitle>Update Form</FormTitle>
 
-      {error && <Error errorMessage={errorMessage} />}
+      {error.status && <Error errorMessage={error.message} />}
       <Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -71,7 +76,10 @@ const UpdatePage = () => {
               if (data.status === 200) {
                 history.push("/events");
               } else {
-                setError(true);
+                setError({
+                  status: true,
+                  message: "Please, fill in the missing information",
+                });
               }
             })
             .catch((err) => {
@@ -80,7 +88,11 @@ const UpdatePage = () => {
         }}
       >
         <ImageDiv>
-          <PickedImage src={event?.found.image} />
+          {isImageLoaded ? (
+            <CircularProgress color="secondary" />
+          ) : (
+            <PickedImage src={event?.found.image} />
+          )}
         </ImageDiv>
         <InputsDiv>
           <div>
@@ -117,14 +129,13 @@ const UpdatePage = () => {
               />
             </InputsWrapper>
             <Calendar
-              value={date}
               onChange={setDate}
               className="calendarDiv"
               tileClassName="calendarTile"
               minDate={new Date()}
               tileDisabled={tileDisabled}
             />
-
+            <Message>Please, select your colors</Message>
             <ColorsDiv>
               {COLORS.map((color, index) => {
                 return (
@@ -153,6 +164,12 @@ const UpdatePage = () => {
   );
 };
 
+const Message = styled.p`
+  text-align: center;
+  color: var(--pink);
+  margin-top: 10px;
+`;
+
 const FormTitle = styled.p`
   margin: 50px 0 0 0;
   color: var(--pink);
@@ -164,10 +181,11 @@ const InputsWrapper = styled.div`
 `;
 
 const Description = styled.textarea`
-  font-size: large;
+  font-size: 1.2em;
   resize: none;
   margin: 20px 0;
   padding: 5px;
+  border-radius: 5px;
   border: 1px solid lightgray;
 
   &::placeholder {
@@ -195,38 +213,19 @@ const Button = styled.button`
   }
 `;
 
-const InputsDiv = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: start;
-  flex-direction: column;
-`;
-
-const ImageDiv = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin-right: 20px;
-`;
-
-const PickedImage = styled.img`
-  width: 100%;
-`;
-
 const ColorsDiv = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
 const Input = styled.input`
   width: 100%;
-  font-size: large;
+  font-size: 1em;
   height: 35px;
-  margin: 0 10px 10px 0;
+  margin: 0 5px 5px 0;
   border: 1px solid lightgray;
   border-radius: 5px;
   padding: 5px;
@@ -237,14 +236,46 @@ const Input = styled.input`
   }
 `;
 
-const Form = styled.form`
-  margin: 50px 0;
+const InputsDiv = styled.div`
+  width: 50%;
+  height: 100%;
   display: flex;
+  justify-content: start;
+  flex-direction: column;
+  padding: 5px;
+  box-sizing: border-box;
+  @media (max-width: 1100px) {
+    margin-top: 20px;
+  }
+`;
+
+const ImageDiv = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px 5px 5px;
+`;
+
+const PickedImage = styled.img`
+  width: 100%;
+  height: 100%;
+  display: block;
+`;
+
+const Form = styled.form`
+  display: flex;
+  align-items: center;
   width: 1000px;
   min-height: 60vh;
-  /* border: 1px solid green; */
-  padding: 20px;
   box-shadow: 0 0 3px rgb(0, 0, 0, 0.2);
+  margin: 50px 0;
+  padding: 20px;
+
+  @media (max-width: 1100px) {
+    width: 800px;
+    flex-direction: column;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -253,6 +284,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 `;
 
 export default UpdatePage;

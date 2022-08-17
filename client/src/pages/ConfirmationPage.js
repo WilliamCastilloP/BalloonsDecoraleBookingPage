@@ -8,13 +8,13 @@ const ConfirmationPage = () => {
   return (
     <Wrapper>
       <Card>
-        <Confirmation>It's confirmed!</Confirmation>
+        <Confirmation>🎉 🎉 🎉 It's confirmed! 🎉 🎉 🎉 </Confirmation>
         <MessageThanks>
           <UserName>{user?.name}</UserName>, thank you for booking your
           decoration with us.
         </MessageThanks>
         <OtherMessage>
-          An email has been sent to us with all of your decoration details.
+          An email has been sent to us with all of your decoration details
         </OtherMessage>
         <OtherMessage>
           Someone from our team will contact you shortly to discuss all the
@@ -55,6 +55,19 @@ const Card = styled.div`
   border: 5px solid var(--lightpink);
   padding: 30px;
   color: var(--pink);
+
+  @media (max-width: 1170px) {
+    width: 35%;
+  }
+  @media (max-width: 950px) {
+    width: 40%;
+  }
+  @media (max-width: 780px) {
+    width: 45%;
+  }
+  @media (max-width: 600px) {
+    width: 60%;
+  }
 `;
 
 const Wrapper = styled.div`

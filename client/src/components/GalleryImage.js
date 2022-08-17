@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
 const GalleryImage = ({ image }) => {
-  const { isAuthenticated } = useContext(AuthenticationContext);
-
   return (
     <Wrapper>
       <Img src={image.url} />
@@ -42,6 +40,11 @@ const StyledLink = styled(Link)`
 
   &:hover {
     background-color: var(--darkpink);
+  }
+
+  @media (max-width: 1145px) {
+    height: 70px;
+    font-size: 1.2em;
   }
 `;
 
@@ -87,6 +90,11 @@ const Wrapper = styled.div`
   @media (max-width: 1145px) {
     width: 630px;
     height: 730px;
+    margin: 20px;
+  }
+  @media (max-width: 600px) {
+    width: 330px;
+    height: 430px;
     margin: 20px;
   }
 `;

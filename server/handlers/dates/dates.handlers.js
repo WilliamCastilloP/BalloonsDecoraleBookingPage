@@ -1,5 +1,6 @@
 const { db } = require("../../db/client");
 
+// retrieves all dates from the dates collection
 const getDates = async (req, res) => {
   foundDates = await db.collection("dates").find().toArray();
 
