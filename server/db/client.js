@@ -3,7 +3,7 @@ const { MongoClient } = require("mongodb");
 const { MONGO_URI } = process.env;
 
 // Seperate db for other files to easily export it
-// through out the app.
+// throughout the app.
 
 // Mongo client options
 const options = {
