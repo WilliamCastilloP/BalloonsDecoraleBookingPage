@@ -103,7 +103,15 @@ const Burger = styled.button`
 
 const LogoImg = styled.img`
   width: 150px;
-  height: 130px;
+  height: 12vh;
+  @media (max-width: 600px) {
+    width: 120px;
+    height: 100px;
+  }
+  @media (max-width: 390px) {
+    width: 100px;
+    height: 90px;
+  }
 `;
 
 const UserImg = styled.img`
@@ -171,7 +179,7 @@ const Wrapper = styled.div`
   position: relative;
   box-sizing: border-box;
   padding: 0 10%;
-  height: 14vh;
+  height: 12vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -198,7 +206,7 @@ const Wrapper = styled.div`
 
     .links-div-active {
       position: absolute;
-      top: 93px;
+      top: 83px;
       left: 50%;
       transform: translate(-50%);
       flex-direction: column;
@@ -215,7 +223,23 @@ const Wrapper = styled.div`
   @media screen and (max-width: 445px) {
     .links-div-active {
       position: absolute;
-      top: 87px;
+      top: 83px;
+      left: 50%;
+      transform: translate(-50%);
+      flex-direction: column;
+      background-color: white;
+      width: 100vw;
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      transition: all 200ms ease-in-out;
+      padding: 10px 0;
+    }
+  }
+  @media screen and (max-width: 390px) {
+    .links-div-active {
+      position: absolute;
+      top: 74px;
       left: 50%;
       transform: translate(-50%);
       flex-direction: column;

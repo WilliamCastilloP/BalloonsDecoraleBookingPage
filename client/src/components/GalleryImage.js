@@ -46,6 +46,11 @@ const StyledLink = styled(Link)`
     height: 70px;
     font-size: 1.2em;
   }
+
+  @media (max-width: 390px) {
+    height: 35px;
+    font-size: 0.7em;
+  }
 `;
 
 const Overlay = styled.div`
@@ -96,6 +101,12 @@ const Wrapper = styled.div`
     width: 330px;
     height: 430px;
     margin: 20px;
+  }
+
+  @media (max-width: 390px) {
+    width: 150px;
+    height: 200px;
+    margin: 10px;
   }
 `;
 

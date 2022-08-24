@@ -50,7 +50,9 @@ const UpdatePage = () => {
 
   return (
     <Wrapper>
-      <FormTitle>Update Form</FormTitle>
+      <FormTitle>
+        Please edit the fields you wish to update and then click Update
+      </FormTitle>
 
       {error.status && <Error errorMessage={error.message} />}
       <Form
@@ -173,6 +175,7 @@ const Message = styled.p`
 const FormTitle = styled.p`
   margin: 50px 0 0 0;
   color: var(--pink);
+  text-align: center;
 `;
 
 const InputsWrapper = styled.div`
@@ -247,6 +250,10 @@ const InputsDiv = styled.div`
   @media (max-width: 1100px) {
     margin-top: 20px;
   }
+
+  @media (max-width: 390px) {
+    width: 90%;
+  }
 `;
 
 const ImageDiv = styled.div`
@@ -255,6 +262,10 @@ const ImageDiv = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px 10px 5px 5px;
+
+  @media (max-width: 390px) {
+    width: 90%;
+  }
 `;
 
 const PickedImage = styled.img`
@@ -275,6 +286,9 @@ const Form = styled.form`
   @media (max-width: 1100px) {
     width: 800px;
     flex-direction: column;
+  }
+  @media (max-width: 390px) {
+    width: 90%;
   }
 `;
 

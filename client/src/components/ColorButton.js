@@ -15,7 +15,6 @@ const Button = styled.button`
   border-radius: 5px;
   border: none;
   background-color: ${(props) => props.color};
-  margin: 0px;
   box-shadow: 0 0 2px rgb(0, 0, 0, 0.5);
   cursor: pointer;
   transition: 100ms ease-in-out;
@@ -25,6 +24,14 @@ const Button = styled.button`
   &:hover {
     transform: scale(1.1);
     transition: 200ms ease-in-out;
+  }
+
+  @media (max-width: 390px) {
+    margin: 5px;
+
+    &:hover {
+      transform: scale(1);
+    }
   }
 `;
 

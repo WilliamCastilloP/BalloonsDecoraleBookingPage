@@ -53,6 +53,9 @@ const SecondPart = styled.span`
   font-size: 1.5em;
   background-color: var(--pink);
   padding: 10px;
+  @media (max-width: 390px) {
+    font-size: 1.2em;
+  }
 `;
 
 const FirstPart = styled.span`
@@ -61,6 +64,10 @@ const FirstPart = styled.span`
   margin-bottom: 20px;
   color: var(--pink);
   padding: 10px;
+
+  @media (max-width: 390px) {
+    font-size: 3em;
+  }
 `;
 
 const BannerText = styled.p`
@@ -80,8 +87,13 @@ const Banner = styled.div`
   background-position-x: 20%;
   background-position-y: 100%;
   background-repeat: no-repeat;
-  height: 700px;
+  height: 600px;
   width: 100%;
+
+  @media (max-width: 390px) {
+    background-position-x: 50%;
+    background-position-y: 100%;
+  }
 `;
 
 const ImagesWrapper = styled.div`

@@ -36,7 +36,7 @@ const UserBookedDecoration = () => {
     <Wrapper>
       {isLoading ? (
         <CircularProgress />
-      ) : events?.length < 1 ? (
+      ) : userBookedEvents.length < 1 ? (
         <p>No decoration has been booked yet.</p>
       ) : (
         <EventsContainer>
@@ -126,7 +126,7 @@ const Img = styled.img`
 `;
 
 const Event = styled.div`
-  width: 80%;
+  width: 700px;
   display: flex;
   height: fit-content;
   background-color: var(--lightpink);
@@ -138,6 +138,10 @@ const Event = styled.div`
   @media (max-width: 1100px) {
     width: 400px;
     flex-direction: column;
+  }
+
+  @media (max-width: 390px) {
+    width: 300px;
   }
 `;
 

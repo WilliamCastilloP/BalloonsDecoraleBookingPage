@@ -36,6 +36,11 @@ const WelcomeDiv = styled.div`
   text-align: center;
   font-size: 1.5em;
   font-weight: 600;
+
+  @media (max-width: 390px) {
+    width: 90%;
+    font-size: 1.2em;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -61,6 +66,12 @@ const StyledLink = styled(Link)`
 
   &:hover {
     transform: translateY(-5%);
+  }
+
+  @media (max-width: 390px) {
+    width: 100px;
+    height: 35px;
+    font-size: 0.9em;
   }
 `;
 

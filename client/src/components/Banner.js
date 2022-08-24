@@ -4,7 +4,6 @@ const Banner = ({ imageUrl }) => {
   return (
     <Wrapper style={{ backgroundImage: `url(${imageUrl})` }}>
       <TitleContainer>
-        {/* <FirstPart>Welcome to</FirstPart>  */}
         <SecondPart>Balloons</SecondPart>
         <ThirdPart className="third-part">Decorale</ThirdPart>
       </TitleContainer>

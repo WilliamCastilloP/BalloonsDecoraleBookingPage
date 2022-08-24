@@ -58,7 +58,6 @@ const BookingPage = () => {
         setIsImageLoaded(false);
       });
   }, []);
-  console.log(error);
   const sendBookingEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -198,11 +197,21 @@ const BookingPage = () => {
             value={description}
             rows="4"
             cols="50"
-            placeholder="Please, add a brief description of your event"
+            placeholder="Notes"
             name="description"
           ></Description>
-          <input style={{ display: "none" }} name="date" value={date} />
-          <input style={{ display: "none" }} name="email" value={user?.email} />
+          <input
+            style={{ display: "none" }}
+            name="date"
+            value={date}
+            readOnly
+          />
+          <input
+            style={{ display: "none" }}
+            name="email"
+            value={user?.email}
+            readOnly
+          />
           <Button type="submit" onClick={() => setIsLoading(true)}>
             {isLoading ? (
               <CircularProgress color="inherit" size={20} />
@@ -298,6 +307,10 @@ const InputsDiv = styled.div`
   @media (max-width: 1100px) {
     margin-top: 20px;
   }
+
+  @media (max-width: 390px) {
+    width: 90%;
+  }
 `;
 
 const ImageDiv = styled.div`
@@ -306,6 +319,10 @@ const ImageDiv = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px 10px 5px 5px;
+
+  @media (max-width: 390px) {
+    width: 90%;
+  }
 `;
 
 const PickedImage = styled.img`
@@ -324,8 +341,11 @@ const Form = styled.form`
   padding: 20px;
 
   @media (max-width: 1100px) {
-    width: 800px;
+    width: fit-content;
     flex-direction: column;
+  }
+  @media (max-width: 390px) {
+    width: 90%;
   }
 `;
 
