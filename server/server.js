@@ -4,7 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 // This is the port constant
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 // importing our ednpoint handlers
 const { getImages, getImage } = require("./handlers/images/imagesHandlers");
 const {
