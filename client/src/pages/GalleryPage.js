@@ -14,7 +14,7 @@ const GalleryPage = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8000/images").then((res) =>
+    fetch("https://balloons-decorale.herokuapp.com/images").then((res) =>
       res.json().then((data) => {
         if (res.status === 200) {
           setIsLoading(false);
