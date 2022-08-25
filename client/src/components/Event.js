@@ -51,7 +51,7 @@ const Event = ({
       </EventImage>
       <Date>{`${format(parseISO(event.date), "dd-MM-yyyy")}`}</Date>
       <Actions>
-        <StyledLink to={`/events/${event._id}`}>
+        <StyledLink to={`/all-events/${event._id}`}>
           <i className="fa-solid fa-pen-to-square"></i>
         </StyledLink>
         <DeleteButton onClick={handleClick} type="submit">
