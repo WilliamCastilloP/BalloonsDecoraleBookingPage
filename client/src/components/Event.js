@@ -12,7 +12,7 @@ const Event = ({
 }) => {
   const handleClick = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8000/events/", {
+    fetch("https://balloons-decorale.herokuapp.com/events/", {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

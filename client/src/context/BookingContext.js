@@ -70,7 +70,7 @@ const BookingProvider = ({ children }) => {
 
   // fetching all of our dates from server
   useEffect(() => {
-    fetch("http://localhost:8000/dates")
+    fetch("https://balloons-decorale.herokuapp.com/dates")
       .then((res) => res.json())
       .then((data) => {
         setReservedDates(data.foundDates);

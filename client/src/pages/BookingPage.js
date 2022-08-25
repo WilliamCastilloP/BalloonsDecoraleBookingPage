@@ -51,7 +51,7 @@ const BookingPage = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/booking/${imageId}`)
+    fetch(`https://balloons-decorale.herokuapp.com/booking/${imageId}`)
       .then((res) => res.json())
       .then((data) => {
         setImage(data.data);
@@ -85,7 +85,7 @@ const BookingPage = () => {
         ref={form}
         onSubmit={(e) => {
           e.preventDefault();
-          fetch("http://localhost:8000/events", {
+          fetch("https://balloons-decorale.herokuapp.com/events", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
