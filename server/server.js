@@ -1,6 +1,7 @@
 "use strict";
 // REQUIRING
 const express = require("express");
+const path = require("path");
 const morgan = require("morgan");
 const cors = require("cors");
 // This is the port constant
@@ -22,7 +23,7 @@ express()
   .use(cors({ origin: "*" }))
 
   .use(morgan("tiny"))
-  .use(express.static("public"))
+  .use(express.static("build"))
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
 
@@ -54,6 +55,10 @@ express()
   // serves all users
   .get("/users", getUsers)
   // ENDPOINTS ENDS HERE
+
+  .get("/*", function (req, res) {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  })
 
   .listen(PORT, () => {
     console.log(`Server app listening on port ${PORT}`);
