@@ -93,6 +93,8 @@ const InfoDate = styled.p`
 `;
 
 const ColorsDiv = styled.div`
+  width: 100%;
+  flex-wrap: wrap;
   display: flex;
 `;
 
