@@ -36,7 +36,7 @@ const Navbar = () => {
             Gallery
           </StyledNavLink>
           {isAdmin ? (
-            <StyledNavLink onClick={() => setIsClicked(false)} to="/events">
+            <StyledNavLink onClick={() => setIsClicked(false)} to="/all-events">
               <Icon>
                 <i className="fa-solid fa-calendar-check"></i>
               </Icon>

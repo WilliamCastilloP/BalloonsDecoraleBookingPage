@@ -51,7 +51,7 @@ function App(props) {
               <ProtectedRoute exact path="/all-events" component={EventsPage} />
               <ProtectedRoute
                 exact
-                path="/events/:eventId"
+                path="/all-events/:eventId"
                 component={UpdatePage}
               />
               <ProtectedRoute
