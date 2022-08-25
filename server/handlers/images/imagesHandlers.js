@@ -1,7 +1,8 @@
-const { db } = require("../../db/client");
+const { db, client } = require("../../db/client");
 
 // retrieves all images in the db
 const getImages = async (req, res) => {
+  await client.connect();
   const images = await db.collection("images").find().toArray();
 
   res.status(200).json({ status: 200, message: "success", data: images });
