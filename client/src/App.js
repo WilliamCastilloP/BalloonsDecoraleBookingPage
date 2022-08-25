@@ -48,7 +48,11 @@ function App(props) {
                 path="/confirmation"
                 component={ConfirmationPage}
               />
-              <ProtectedRoute exact path="/events" component={EventsPage} />
+              <ProtectedRoute
+                exact
+                path="https://balloons-decorale.herokuapp.com/events"
+                component={EventsPage}
+              />
               <ProtectedRoute
                 exact
                 path="/events/:eventId"
