@@ -236,10 +236,10 @@ const Wrapper = styled.div`
       padding: 10px 0;
     }
   }
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 400px) {
     .links-div-active {
       position: absolute;
-      top: 74px;
+      top: 76px;
       left: 50%;
       transform: translate(-50%);
       flex-direction: column;
