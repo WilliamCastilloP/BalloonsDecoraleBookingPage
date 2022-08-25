@@ -15,7 +15,6 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "nodemon server.js",
-    "heroku-postbuild": "npm run build"
+    "start": "nodemon server.js"
   }
 }
