@@ -87,7 +87,7 @@ const Banner = styled.div`
   background-position-x: 20%;
   background-position-y: 100%;
   background-repeat: no-repeat;
-  height: 600px;
+  height: 700px;
   width: 100%;
 
   @media (max-width: 390px) {
