@@ -193,7 +193,8 @@ const Wrapper = styled.div`
     .links-div-hidden {
       position: absolute;
       top: 93px;
-      left: -500%;
+      left: 50%;
+      opacity: 0;
       transform: translate(-50%);
       flex-direction: column;
       background-color: white;
@@ -202,12 +203,14 @@ const Wrapper = styled.div`
       padding: 0;
       margin: 0;
       transition: all 200ms ease-in-out;
+      visibility: hidden;
     }
 
     .links-div-active {
       position: absolute;
       top: 83px;
       left: 50%;
+      opacity: 1;
       transform: translate(-50%);
       flex-direction: column;
       background-color: white;
@@ -236,20 +239,9 @@ const Wrapper = styled.div`
       padding: 10px 0;
     }
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 360px) {
     .links-div-active {
-      position: absolute;
-      top: 76px;
-      left: 50%;
-      transform: translate(-50%);
-      flex-direction: column;
-      background-color: white;
-      width: 100vw;
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-      transition: all 200ms ease-in-out;
-      padding: 10px 0;
+      top: 70px;
     }
   }
 
