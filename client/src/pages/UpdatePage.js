@@ -76,7 +76,7 @@ const UpdatePage = () => {
             .then((res) => res.json())
             .then((data) => {
               if (data.status === 200) {
-                history.push("/events");
+                history.push("/all-events");
               } else {
                 setError({
                   status: true,
