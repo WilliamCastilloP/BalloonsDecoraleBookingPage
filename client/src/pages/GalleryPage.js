@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import GalleryImage from "../components/GalleryImage";
 import { BookingContext } from "../context/BookingContext";
 import CircularProgress from "@mui/material/CircularProgress";
+import Masonry from "react-masonry-css";
+import "../../src/masonry.css";
 
 const GalleryPage = () => {
   const [images, setImages] = useState(null);
@@ -24,6 +26,13 @@ const GalleryPage = () => {
     );
   }, []);
 
+  const masonryBreakpoints = {
+    default: 3,
+    800: 2,
+    600: 1,
+    390: 1,
+  };
+
   return (
     <Wrapper>
       <Banner>
@@ -36,13 +45,19 @@ const GalleryPage = () => {
         </BannerText>
       </Banner>
       <ImagesWrapper>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          images?.data.map((image) => {
-            return <GalleryImage key={image._id} image={image} />;
-          })
-        )}
+        <Masonry
+          breakpointCols={masonryBreakpoints}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            images?.data.map((image) => {
+              return <GalleryImage key={image._id} image={image} />;
+            })
+          )}
+        </Masonry>
       </ImagesWrapper>
     </Wrapper>
   );
@@ -97,14 +112,15 @@ const Banner = styled.div`
 `;
 
 const ImagesWrapper = styled.div`
+  margin-top: 50px;
   height: fit-content;
-  width: 90%;
+  /* width: 90%; */
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: center;
-  padding: 20px 0;
+  /* padding: 20px 0;
   margin-top: 20px;
-  background-color: var(--lighterpink);
+  background-color: var(--lighterpink); */
 `;
 
 const Wrapper = styled.div`

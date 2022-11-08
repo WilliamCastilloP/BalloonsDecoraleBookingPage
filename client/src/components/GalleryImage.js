@@ -1,12 +1,10 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { AuthenticationContext } from "../context/AuthenticationContext";
 
 const GalleryImage = ({ image }) => {
   return (
     <Wrapper>
-      <Img src={image.url} />
+      <Img classname="image" src={image.url} />
       <Overlay>
         <StyledLink
           className="styledLink"
@@ -77,8 +75,8 @@ const Img = styled.img`
 `;
 
 const Wrapper = styled.div`
-  width: 330px;
-  height: 430px;
+  width: 400px;
+  /* height: 430px; */
   position: relative;
   margin: 10px;
   transition: transform 200ms ease-in-out;
@@ -88,25 +86,18 @@ const Wrapper = styled.div`
     opacity: 1;
   }
 
-  @media (max-width: 1330px) {
-    width: 530px;
-    height: 630px;
+  @media (max-width: 1300px) {
+    width: calc(calc(100vw - 100px) / 3);
   }
-  @media (max-width: 1145px) {
-    width: 630px;
-    height: 730px;
-    margin: 20px;
+  @media (max-width: 800px) {
+    width: calc(calc(100vw - 80px) / 2);
   }
   @media (max-width: 600px) {
-    width: 330px;
-    height: 430px;
-    margin: 20px;
+    width: calc(100vw - 60px);
   }
 
   @media (max-width: 390px) {
-    width: 150px;
-    height: 200px;
-    margin: 10px;
+    width: calc(100vw - 40px);
   }
 `;
 
