@@ -1,0 +1,25 @@
+{
+  "name": "balloonsdecoralebookingpage",
+  "version": "1.0.0",
+  "description": "Balloons Decorale Official Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm start --prefix server",
+    "dev": "concurrently \" npm run start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilliamCastilloP/BalloonsDecoraleBookingPage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WilliamCastilloP/BalloonsDecoraleBookingPage/issues"
+  },
+  "homepage": "https://github.com/WilliamCastilloP/BalloonsDecoraleBookingPage#readme",
+  "dependencies": {
+    "concurrently": "^7.5.0"
+  }
+}
