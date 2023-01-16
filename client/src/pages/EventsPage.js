@@ -17,7 +17,7 @@ const EventsPage = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://balloons-decorale.herokuapp.com/events")
+    fetch("https://balloons-decorale.onrender.com/events")
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {

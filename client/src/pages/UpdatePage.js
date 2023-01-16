@@ -35,7 +35,7 @@ const UpdatePage = () => {
   } = useContext(BookingContext);
 
   useEffect(() => {
-    fetch(`https://balloons-decorale.herokuapp.com/events/${eventId}`)
+    fetch(`https://balloons-decorale.onrender.com/events/${eventId}`)
       .then((res) => res.json())
       .then((data) => {
         setIsImageLoaded(false);
@@ -58,7 +58,7 @@ const UpdatePage = () => {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          fetch("https://balloons-decorale.herokuapp.com/events", {
+          fetch("https://balloons-decorale.onrender.com/events", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
