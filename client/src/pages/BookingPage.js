@@ -77,6 +77,8 @@ const BookingPage = () => {
       );
   };
 
+  console.log(error);
+
   return (
     <Wrapper>
       <FormTitle>Booking form.</FormTitle>
@@ -105,6 +107,7 @@ const BookingPage = () => {
             .then((data) => {
               if (data.status === 200) {
                 history.push("/confirmation");
+                sendBookingEmail(e);
                 resetForm();
               } else if (data.status === 406) {
                 setError({
@@ -124,7 +127,6 @@ const BookingPage = () => {
               console.log(err);
             });
           setError({ status: false, message: "" });
-          sendBookingEmail(e);
         }}
       >
         <ImageDiv>
@@ -215,6 +217,8 @@ const BookingPage = () => {
           <Button type="submit" onClick={() => setIsLoading(true)}>
             {isLoading ? (
               <CircularProgress color="inherit" size={20} />
+            ) : error.status === true ? (
+              "Oops :("
             ) : (
               "Book this event"
             )}
