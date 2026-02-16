@@ -1,19 +1,20 @@
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
+
 const { MONGO_URI } = process.env;
 
-// Seperate db for other files to easily export it
-// throughout the app.
+const client = new MongoClient(MONGO_URI);
 
-// Mongo client options
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+let db;
+
+const connectDB = async () => {
+  if (!db) {
+    await client.connect();
+    db = client.db("decorations");
+    console.log("✅ MongoDB connected");
+  }
+  return db;
 };
 
-// setting up MongoClient
-const client = new MongoClient(MONGO_URI, options);
-// selecing the db to be used.
-const db = client.db("decorations");
+module.exports = { connectDB };
 
-module.exports = { db, client };
