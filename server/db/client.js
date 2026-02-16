@@ -5,16 +5,16 @@ const { MONGO_URI } = process.env;
 
 const client = new MongoClient(MONGO_URI);
 
-let db;
+let connectDB;
 
-const connectDB = async () => {
-  if (!db) {
+const db = async () => {
+  if (!connectDB ) {
     await client.connect();
-    db = client.db("decorations");
+    connectDB = client.db("decorations");
     console.log("✅ MongoDB connected");
   }
-  return db;
+  return connectDB;
 };
 
-module.exports = { connectDB };
+module.exports = { db };
 

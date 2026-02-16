@@ -1,11 +1,11 @@
-const { connectDB } = require("../../db/client");
+const { db } = require("../../db/client");
 const { ObjectId } = require("mongodb");
 
 // GET ALL IMAGES
 const getImages = async (req, res) => {
   try {
-    const db = await connectDB();
-    const images = await db.collection("images").find().toArray();
+    const database = await db();
+    const images = await database.collection("images").find().toArray();
 
     res.status(200).json({
       status: 200,
@@ -21,10 +21,10 @@ const getImages = async (req, res) => {
 // GET IMAGE
 const getImage = async (req, res) => {
   try {
-    const db = await connectDB();
+    const database = await db();
     const { imageId } = req.params;
 
-    const foundImage = await db
+    const foundImage = await database
       .collection("images")
       .findOne({ _id: new ObjectId(imageId) });
 
