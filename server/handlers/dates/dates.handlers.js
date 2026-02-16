@@ -11,7 +11,7 @@ const getDates = async (req, res) => {
       console.error("getDates error:", err);
       res.status(500).json({ status: 500, error: "Server error" });
     }
-  };
+  
 };
 
 module.exports = { getDates };

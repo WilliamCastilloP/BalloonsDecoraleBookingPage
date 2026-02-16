@@ -1,8 +1,11 @@
 // requiring our db and client
-const { db } = require("../../db/client");
+const { connectDB } = require("../../db/client");
 
 // required UUID to create random IDs
 const { v4: uuidv4 } = require("uuid");
+
+// Connect DB
+const db = await connectDB();
 
 // Creates a new event
 const addEvent = async (req, res) => {
