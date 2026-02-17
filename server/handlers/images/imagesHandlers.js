@@ -20,7 +20,7 @@ const getImages = async (req, res) => {
 const getImage = async (req, res) => {
   try {
     const { imageId } = req.params;
-
+    const _id = imageId;
     const foundImage = await db.collection("images").findOne({ _id });
 
     if (!foundImage) {
