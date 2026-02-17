@@ -2,9 +2,7 @@ const { db } = require("../../db/client");
 // retrieves all dates from the dates collection
 const getDates = async (req, res) => {
     try {
-      const database = await db();
-      const foundDates = await database.collection("dates").find().toArray();
-
+      const foundDates = await db.collection("dates").find().toArray();
       res.status(200).json({ status: 200, message: "success", foundDates });
     } catch (err) {
       console.error("getDates error:", err);
