@@ -69,13 +69,22 @@ const BookingProvider = ({ children }) => {
   };
 
   // fetching all of our dates from server
-  useEffect(() => {
-    fetch("https://balloons-decorale.onrender.com/dates")
-      .then((res) => res.json())
-      .then((data) => {
+useEffect(() => {
+  fetch("https://balloons-decorale.onrender.com/dates")
+    .then((res) => {
+      if (!res.ok) throw new Error("Server error");
+      return res.json();
+    })
+    .then((data) => {
+      if (data?.foundDates) {
         setReservedDates(data.foundDates);
-      });
-  }, [isUpdated]);
+      }
+    })
+    .catch((err) => {
+      console.error("Dates fetch failed:", err);
+      setReservedDates([]); // no bloquea la UI
+    });
+}, [isUpdated]);
 
   // this func will reset forms back to empty values after post and put fetches
   const resetForm = () => {
