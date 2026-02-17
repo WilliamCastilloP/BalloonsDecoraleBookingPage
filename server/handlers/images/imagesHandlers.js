@@ -1,5 +1,4 @@
 const { db } = require("../../db/client");
-const { ObjectId } = require("mongodb");
 
 // GET ALL IMAGES
 const getImages = async (req, res) => {
@@ -22,9 +21,7 @@ const getImage = async (req, res) => {
   try {
     const { imageId } = req.params;
 
-    const foundImage = await db
-      .collection("images")
-      .findOne({ _id: new ObjectId(imageId) });
+    const foundImage = await db.collection("images").findOne({ _id });
 
     if (!foundImage) {
       return res.status(404).json({
